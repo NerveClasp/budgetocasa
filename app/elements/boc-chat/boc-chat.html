@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-chat">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    [[message]]
+  </template>
+  <script>
+    Polymer({
+      is: 'boc-chat',
+      properties: {
+        message: {
+          type Object
+        }
+      },
+      ready: function() {
+        this.socket = io();
+        var self = this;
+        // this.$.editor.addEventListener('message', sendMessage);
+        this.socket.on('chat new', function(msg) {
+          // self.model.push(msg);
+          console.log(self.message);
+          self.message = msg.message;
+        });
+      }
+    });
+  </script>
+</dom-module>
