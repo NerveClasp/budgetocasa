@@ -1,0 +1,24 @@
+{
+  "name": "budgetocasa",
+  "version": "1.0.0",
+  "description": "A Web App that helps with shoping lists and keeps track of your shared budget. Designed primarily for those, who share and apartment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NerveClasp/budgetocasa.git"
+  },
+  "author": "Roman Horokhov (NerveClasp)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/NerveClasp/budgetocasa/issues"
+  },
+  "homepage": "https://github.com/NerveClasp/budgetocasa#readme",
+  "dependencies": {
+    "firebase": "^3.6.7",
+    "firebase-admin": "^4.0.6",
+    "moment": "^2.17.1"
+  }
+}

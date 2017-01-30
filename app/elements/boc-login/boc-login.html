@@ -1,0 +1,136 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-login">
+  <template>
+  <style>
+  .welcome-home{
+    font-family: Junegull, monospace;
+    border-radius: 50%;
+    height: 128px;
+    width: 128px;
+    color: #3d3d3d;
+    background-color: #609bd1;
+    box-shadow:
+  }
+  #google{
+    float: left;
+  }
+  #twitter{
+    float: right;
+  }
+  .loginContainer{
+    height: 280px;
+    width: 280px;
+  }
+  .wrapper{
+    margin: 0;
+    border: 10px;
+    border-width: 0px;
+    border-radius: 2px;
+    background-color: #609bd1;
+    color: #3d3d3d;
+    padding: 12px;
+    margin: 6px;
+    align-items: center;
+  }
+  .welcome{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    padding-left: 6px;
+  }
+  .pcard{
+    width: 100%;
+    background-color: #609bd1;
+    font-family: Junegull, monospace;
+  }
+  #logout{
+    float: left;
+  }
+  .intro{
+    font-family: Junegull, monospace;
+    color: #609bd1;
+    text-align: center;
+    text-shadow: 0 0 2px #609bd1;
+  }
+  </style>
+<firebase-auth
+  id="authGoogle" user="{{user}}" status-known="{{statusKnown}}" provider="google">
+</firebase-auth>
+<firebase-auth
+  id="authTwitter" user="{{user}}" provider="twitter">
+</firebase-auth>
+<firebase-query
+  id="queryUser"
+  path="/users"
+  data={{users}}>
+</firebase-query>
+<div class="loginContainer centered" hidden$="[[user]]">
+  <div class="intro">
+    <p>Хочеш продовжити фразу <span style="font-size: 20px;">"Ідеальний час, щоб.."?</span></p>
+    <p>Тоді логінся з існуючим аккаунтом, додавай текст і його побачать усі.</p>
+  </div>
+  <paper-button id="twitter" class="welcome-home" raised on-tap="loginTwitter">
+    <img src="./img/gray_twitter.png" alt="Login with Twitter" />
+  </paper-button>
+  <paper-button id="google" class="welcome-home" raised on-tap="loginGoogle">
+    <img src="./img/red_google.png" alt="Login with Google" />
+  </paper-button>
+</div>
+<div class="wrapper, layout horizontal" hidden$="[[!user]]">
+  <div id="test" onload="userCheck([[user]])" onshow="userCheck([[user]])"></div>
+  <paper-card class="pcard">
+    <div class="card-content">
+
+      <template is="dom-if" if="[[user]]">
+
+        <div class="welcome">
+          <paper-button raised on-tap="logout" id="logout">Leave</paper-button>
+          <h3>[[user.displayName]], вітаннячко в консолі 'Ідеального Часу Щоб..'</h3>
+        </div>
+      </template></div>
+    </paper-card>
+  </div>
+</template>
+<script>
+Polymer({
+  is: "boc-login",
+  properties: {
+    user: {
+      type: Object
+    },
+    statusKnown: {
+      type: Object
+    },
+    users: {
+      type: Object
+    }
+  },
+  ready: function() {
+    console.log("ready");
+  },
+  loginGoogle: function() {
+    return this.$.authGoogle.signInWithPopup();
+  },
+  loginTwitter: function() {
+    return this.$.authTwitter.signInWithPopup();
+  },
+  logout: function() {
+    this.userDB();
+    return this.$.authGoogle.signOut();
+  },
+  userDB: function() {
+    let usr = this.user;
+    let q = this.$.queryUser.ref.child(usr.uid);
+    q.once("value", function(snapshot){
+      if(!snapshot.exists()){
+        q.set({uid: usr.uid, type: "user", name: usr.displayName})
+      }
+    }, function(errorObject) {
+      console.log("The read failed: "+errorObject.code);
+    });
+  }
+});
+</script>
+</dom-module>

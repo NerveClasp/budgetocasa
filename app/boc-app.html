@@ -1,0 +1,71 @@
+<link rel="import" href="bower_components/polymerfire/firebase-app.html">
+
+<dom-module id="boc-app">
+  <template>
+    <style>
+      :root {
+        --paper-tabs-selection-bar-color: #795548;
+      }
+      h1{
+        display: block;
+        font-family: Junegull, monospace;
+        text-align: center;
+        border: 10px;
+        border-width: 0px;
+        border-radius: 2px;
+        background-color: var(--light-primary-color);
+        color: var(--light-primary-color);
+        flex-direction: row;
+        padding: 12px;
+        margin: 0;
+      }
+
+    </style>
+  <firebase-app
+    id="firebase"
+    auth-domain="budgetocasa.firebaseapp.com"
+    database-url="https://budgetocasa.firebaseio.com/"
+    api-key="AIzaSyCv0VvCijXIONhpueMGErW2KWyzoIvv82o">
+  </firebase-app>
+  <firebase-auth user="{{user}}"></firebase-auth>
+  <boc-login></boc-login>
+    <template is="dom-if" if="[[user]]">
+      <paper-tabs selected={{selected}} align-bottom>
+        <paper-tab>Main</paper-tab>
+        <paper-tab>Chat</paper-tab>
+        <paper-tab>Stats</paper-tab>
+        <paper-tab>Settings</paper-tab>
+      </paper-tabs>
+      <iron-pages selected={{selected}}>
+      <div>
+        <boc-home></boc-home>
+      </div>
+      <div>
+        <boc-chat></boc-chat>
+      </div>
+      <div>
+        <boc-stats></boc-stats>
+      </div>
+      <div>
+        <boc-settings></boc-settings>
+      </div>
+    </template>
+</template>
+  <script>
+    Polymer({
+      is: 'boc-app',
+      properties: {
+        user: {
+          type: Object
+        },
+        statusKnown: {
+          type: Object
+        },
+        selected:{
+          type: Number,
+          value: 0
+        }
+      }
+    });
+  </script>
+</dom-module>
