@@ -7,7 +7,22 @@
         display: block;
       }
     </style>
-    Settings
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <furebase-document
+      id="userdb" path="/users/[[user.uid]]"
+      data={{userdb}}></furebase-document>
+    <p>Settings</p>
+    <template is="dom-repeat" items="[[userbd.nodes]]" index-as="node">
+      <p>[[node.name]] -
+      <template is="dom-repeat" items="[[node.users]]" index-as="user">
+        [[user.name]]
+      </template>
+      </p>
+    </template>
+    <paper-input label="Node Name"></paper-input>
+    <paper-button id="addNode" raised>Add node</paper-button>
+    <p>Nodes list (dom-repeat using the array)</p>
+    <p>Add/Create new Node</p>
   </template>
   <script>
     Polymer({
