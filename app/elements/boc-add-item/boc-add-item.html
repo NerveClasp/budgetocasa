@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-add-item">
+  <template>
+    <firebase-auth id="user" user="{{user}}"></firebase-auth>
+    <firebase-document
+      id="userdata"
+      path="/users/[[user.uid]]"
+      data="{{userdata}}">
+    </firebase-document>
+    <firebase-query
+        id="shoplist"
+        path="/shoplist"
+        data="{{shoplist}}">
+    </firebase-query>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-textarea id="textarea" textinput={{textinput}}
+      label="Шо купіть?" class="boc-text">
+    </paper-textarea>
+    <div id="button-container">
+    <paper-button raised class="button" id="add-button"  on-tap="add">Додати</paper-button>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'boc-add-item',
+      properties: {
+        shoplist: {
+          type: Object
+        },
+        user:{
+          type: Object
+        }
+      },
+      add: function() {
+        let obj = {
+          name: this.$.textarea.value,
+          user: this.user.uid,
+          order: 0-Date.now()
+        };
+        this.$.shoplist.ref.push(obj);
+        this.$.textarea.value = null;
+      }
+
+    });
+  </script>
+</dom-module>

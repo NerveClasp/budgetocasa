@@ -1,0 +1,81 @@
+/*
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/
+html{
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+  min-height: 500px;
+}
+
+body {
+  background-color: #004039;
+  /*background: #fafafa;*/
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #B2DFDB;
+  margin: 0;
+  padding: 0;
+}
+paper-button{
+  background: #FFC107;
+}
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
+}
+
+
+.page-title {
+  outline: none;
+}
+
+paper-slider {
+  width: 100%;
+}
+h1{
+  display: block;
+  font-family: Junegull, monospace;
+  text-align: center;
+  font-size: 12pt;
+  /*border: 10px;*/
+  /*border-width: 0px;*/
+  /*border-radius: 2px;*/
+  /*background-color: #609bd1;*/
+  color: #212121;
+  flex-direction: row;
+  margin: 6px;
+  padding: 2px;
+}
+.list-container{
+  font-size: 10pt;
+  @apply(--layout-horizontal);
+  margin: 3px;
+  width: 100%;
+  align-self: center;
+}
+@media only screen and (min-width: 768px) {
+  .list-container{
+    font-size: 14pt;
+    max-width: 768px;
+  }
+  h3{
+    font-size: 16px;
+  }
+}
+.card-actions{
+  @apply(--layout-horizontal);
+  align-items: center;
+  background-color: #F2F9FF;
+}
+paper-tabs{
+  color: #B2DFDB;
+  background-color: #00796B;
+}

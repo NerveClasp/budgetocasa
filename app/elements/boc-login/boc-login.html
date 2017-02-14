@@ -3,6 +3,9 @@
 <dom-module id="boc-login">
   <template>
   <style>
+  h3{
+    width: 90%;
+  }
   .centered {
     position: fixed;
     top: 50%;
@@ -36,7 +39,9 @@
     align-items: center;
   }
   .welcome{
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    background-color: #009688;
     width: 100%;
     position: relative;
     text-align: center;
@@ -55,6 +60,11 @@
     color: #609bd1;
     text-align: center;
     text-shadow: 0 0 2px #609bd1;
+  }
+  paper-button{
+    width: 10%;
+    color: #212121;
+    background: #FFC107;
   }
   </style>
 <firebase-auth
@@ -83,8 +93,8 @@
       <template is="dom-if" if="[[user]]">
 
         <div class="welcome">
-          <paper-button raised on-tap="logout" id="logout">Leave</paper-button>
           <h3>Howdy, [[user.displayName]]</h3>
+          <paper-button raised on-tap="logout" id="logout">Leave</paper-button>
         </div>
       </template></div>
     </paper-card>
