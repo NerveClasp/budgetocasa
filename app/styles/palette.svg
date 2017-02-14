@@ -6,7 +6,7 @@
   <rect x="266" y="20" fill="#009688" width="246" height="200"/>
   <rect x="512" y="20" fill="#B2DFDB" width="246" height="200"/>
   <rect x="758" y="20" fill="#FFFFFF" width="246" height="200"/>
-  <rect x="20" y="220" fill="#FFC107" width="246" height="200"/>
+  <rect x="20" y="220" fill="var(--accent-color)" width="246" height="200"/>
   <rect x="266" y="220" fill="#212121" width="246" height="200"/>
   <rect x="512" y="220" fill="#757575" width="246" height="200"/>
   <rect x="758" y="220" fill="#BDBDBD" width="246" height="200"/>

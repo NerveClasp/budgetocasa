@@ -12,8 +12,8 @@ html{
   min-width: 320px;
   min-height: 500px;
 }
-
 body {
+  /*background: url(../img/floral.svg), no-repeat;*/
   background-color: #004039;
   /*background: #fafafa;*/
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -21,18 +21,42 @@ body {
   margin: 0;
   padding: 0;
 }
+
+
+:root {
+  --darkest-primary-color:    #004039;
+  --dark-primary-color:       #00796B;
+  --default-primary-color:    #009688;
+  --light-primary-color:      #B2DFDB;
+  --text-primary-color:       #FFFFFF;
+  --accent-color:             #FFC107;
+  --primary-background-color: #B2DFDB;
+  --primary-text-color:       #212121;
+  --secondary-text-color:     #757575;
+  --disabled-text-color:      #BDBDBD;
+  --divider-color:            #BDBDBD;
+
+
+  /* Components */
+
+  /* paper-drawer-panel */
+  --drawer-menu-color:           #ffffff;
+  --drawer-border-color:         1px solid #ccc;
+  --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+
+  /* paper-menu */
+  --paper-menu-background-color: #fff;
+  --menu-link-color:             #111111;
+
+  /* paper-input */
+  --paper-input-container-color:       rgba(255, 255, 255, 0.64);
+  --paper-input-container-focus-color: rgba(255, 255, 255, 1);
+  --paper-input-container-input-color: #fff;
+}
+
 paper-button{
-  background: #FFC107;
+  background: var(--accent-color);
 }
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -200px;
-  margin-left: -200px;
-}
-
-
 .page-title {
   outline: none;
 }
@@ -76,6 +100,6 @@ h1{
   background-color: #F2F9FF;
 }
 paper-tabs{
-  color: #B2DFDB;
-  background-color: #00796B;
+  color: var(--light-primary-color, #B2DFDB);
+  background-color: var(--dark-primary-color, #00796B);
 }

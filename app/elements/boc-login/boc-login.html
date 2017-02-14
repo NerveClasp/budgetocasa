@@ -3,6 +3,10 @@
 <dom-module id="boc-login">
   <template>
   <style>
+  :host{
+    --login-height: 300px;
+    --login-width: 200px;
+  }
   h3{
     width: 90%;
   }
@@ -20,12 +24,11 @@
     width: 120px;
     margin-left: 40px;
     color: #3d3d3d;
-    background-color: #609bd1;
-    box-shadow:
+    background-color: #009688;
   }
   .loginContainer{
-    height: 300px;
-    width: 200px;
+    height: var(--login-height);
+    width: var(--login-width);
   }
   .wrapper{
     margin: 0;
@@ -41,15 +44,14 @@
   .welcome{
     display: flex;
     flex-direction: row;
-    background-color: #009688;
+    background-color: var(--default-primary-color);
     width: 100%;
     position: relative;
     text-align: center;
-    padding-left: 6px;
   }
   .pcard{
     width: 100%;
-    background-color: #609bd1;
+    background-color: var(--default-primary-color);
     font-family: Junegull, monospace;
   }
   #logout{
@@ -57,14 +59,14 @@
   }
   .intro{
     font-family: Junegull, monospace;
-    color: #609bd1;
+    color: var(--light-primary-color);
     text-align: center;
-    text-shadow: 0 0 2px #609bd1;
+    text-shadow: 0 0 2px var(--default-primary-color);
   }
   paper-button{
     width: 10%;
-    color: #212121;
-    background: #FFC107;
+    color: var(--primary-text-color);
+    background: var(--accent-color);
   }
   </style>
 <firebase-auth
@@ -81,8 +83,7 @@
     <p>Worry not about who ows who</p>
   </div>
   <paper-button id="google" class="welcome-home" raised on-tap="login">
-    <!-- <img src="./img/red_google.png" alt="Login with Google" /> -->
-    G!
+    <img src="../../img/google.png" alt="Login with Google" />
   </paper-button>
 </div>
 <div class="wrapper, layout horizontal" hidden$="[[!user]]">

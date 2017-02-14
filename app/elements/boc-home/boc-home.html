@@ -6,19 +6,42 @@
       :host {
         display: block;
       }
+      .experiment{
+        width: 100px;
+        height: 100px;
+        background-color: var(--dark-primary-color);
+      }
+      paper-fab {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 70px;
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+      }
     </style>
-    <p>Home</p>
+    <paper-material elevation="[[elev]]">
+      Test
+    </paper-material>
     <!-- <boc-add-item></boc-add-item> -->
-    <boc-stats text="pretty"></boc-stats>
-    <boc-stats text="beautiful"></boc-stats>
     <!-- <p>- current shopping list</p> -->
     <!-- <p>- add new item to the list</p> -->
     <!-- <p>- add new purchase</p> -->
+    <paper-fab icon="add" on-tap="_raise"></paper-fab>
   </template>
   <script>
     Polymer({
       is: 'boc-home',
-
+      properties: {
+        elev: { type: Number, value: 0 }
+      },
+      _raise: function() {
+        if(this.elev < 6 ){ //5 max
+          this.elev++;
+        }else{
+          this.elev = 0;
+        }
+      }
     });
   </script>
 </dom-module>

@@ -4,7 +4,28 @@
   <template>
     <style>
       :root {
-        --paper-tabs-selection-bar-color: #FFC107;
+        --paper-tabs-selection-bar-color: var(--accent-color);
+        --dark-primary-color:       #00796B;
+        --default-primary-color:    #009688;
+        --light-primary-color:      #B2DFDB;
+        --text-primary-color:       #FFFFFF;
+        --accent-color:             #FFC107;
+        --primary-background-color: #B2DFDB;
+        --primary-text-color:       #212121;
+        --secondary-text-color:     #757575;
+        --disabled-text-color:      #BDBDBD;
+        --divider-color:            #BDBDBD;
+        /* paper-drawer-panel */
+        --drawer-menu-color:           #ffffff;
+        --drawer-border-color:         1px solid #ccc;
+        --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+        /* paper-menu */
+        --paper-menu-background-color: #fff;
+        --menu-link-color:             #111111;
+        /* paper-input */
+        --paper-input-container-color:       rgba(255, 255, 255, 0.64);
+        --paper-input-container-focus-color: rgba(255, 255, 255, 1);
+        --paper-input-container-input-color: #fff;
       }
       h1{
         display: block;
@@ -44,7 +65,6 @@
         <boc-chat></boc-chat>
       </div>
       <div>
-        <boc-stats text="beautiful"></boc-stats>
         <boc-stats></boc-stats>
       </div>
       <div>
@@ -56,16 +76,12 @@
     Polymer({
       is: 'boc-app',
       properties: {
-        user: {
-          type: Object
-        },
-        statusKnown: {
-          type: Object
-        },
-        selected:{
-          type: Number,
-          value: 0
-        }
+        user:         { type: Object, observer: 'userdata' },
+        statusKnown:  { type: Object },
+        selected:     { type: Number, value: 0 }
+      },
+      userdata: function(data) {
+        console.log(data);
       }
     });
   </script>
