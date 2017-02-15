@@ -1,29 +1,28 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="boc-add-item">
+<dom-module id="boc-add-item" source={{source}} test2={{hidden}} test={{hidden}}>
   <template>
     <firebase-auth id="user" user="{{user}}"></firebase-auth>
     <firebase-document
-      id="userdata"
-      path="/users/[[user.uid]]"
-      data="{{userdata}}">
+      id="house"
+      path="/nodes/[[source]]"
+      data={{house}}>
     </firebase-document>
-    <firebase-query
-        id="shoplist"
-        path="/shoplist"
-        data="{{shoplist}}">
-    </firebase-query>
     <style>
       :host {
         display: block;
       }
     </style>
-    <paper-textarea id="textarea" textinput={{textinput}}
-      label="Шо купіть?" class="boc-text">
-    </paper-textarea>
-    <div id="button-container">
-    <paper-button raised class="button" id="add-button"  on-tap="add">Додати</paper-button>
-    </div>
+    <paper-card elevation="1" animated-shadow="true">
+      <div class="card-content">
+        <paper-textarea id="textarea" textinput={{textinput}}
+        label="Шо купіть?" class="boc-text">
+        </paper-textarea>
+      </div>
+      <div class="card-actions">
+        <paper-button raised class="button" id="add-button"  on-tap="_add">Додати</paper-button>
+      </div>
+    </paper-card>
   </template>
   <script>
     Polymer({
@@ -36,6 +35,19 @@
           type: Object
         }
       },
+      _add: function() {
+        var price = "";
+        var obj = {
+          name: this.$.textarea.value,
+          user: this.user.uid,
+          order: 0-Date.now(),
+          price: price
+        };
+        this.$.house.ref.child("shopinglist").push(obj);
+        this.$.textarea.value = null;
+        // this.hidden = true;
+        this.test = true;
+      },
       add: function() {
         let obj = {
           name: this.$.textarea.value,
@@ -44,6 +56,7 @@
         };
         this.$.shoplist.ref.push(obj);
         this.$.textarea.value = null;
+
       }
 
     });

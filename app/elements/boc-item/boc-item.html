@@ -1,0 +1,30 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-item" name={{name}} price={{price}} quantity={{quantity}}>
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-card:hover{
+        @apply(--shadow-elevation-8dp);
+      }
+    </style>
+    <paper-card elevation="1" animated-shadow="true">
+      <div class="card-content">
+      [[name]]
+      </div>
+      <!-- <div class="card-actions">
+        <paper-fab mini icon="remove" on-tap='_lower'></paper-fab>
+      </div> -->
+    </paper-card>
+  </template>
+  <script>
+    Polymer({
+      is: 'boc-item',
+      _lower: function() {
+        console.log("go low");
+      }
+    });
+  </script>
+</dom-module>

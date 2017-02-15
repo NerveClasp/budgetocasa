@@ -6,12 +6,7 @@
       :host {
         display: block;
       }
-      .experiment{
-        width: 100px;
-        height: 100px;
-        background-color: var(--dark-primary-color);
-      }
-      paper-fab {
+      .action {
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 70px;
@@ -19,28 +14,79 @@
         right: 25px;
         bottom: 25px;
       }
+      /*.card-actions .card-content{
+        display: flex;
+        flex-direction: column;
+      }*/
+
     </style>
-    <paper-material elevation="[[elev]]">
-      Test
-    </paper-material>
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-document
+      id="userdata"
+      path="/users/[[user.uid]]"
+      data={{userdata}}>
+    </firebase-document>
+    <firebase-document
+      id="house"
+      path="/nodes/[[userdata.node]]"
+      data={{house}}>
+    </firebase-document>
+    <firebase-query
+      id="shoplist"
+      path="/nodes/[[userdata.node]]/shopinglist"
+      data={{shoplist}}>
+    </firebase-query>
+
+    <boc-add-item id="addit" source=[[userdata.node]] hidden={{hidden}} test={{hidden}}></boc-add-item>
+    <template is="dom-repeat" items="[[shoplist]]" as="item">
+      <boc-item name="[[item.name]]"></boc-item>
+
+    </template>
+
+
+    <!-- <boc-item name="[[user.uid]]"></boc-item> -->
+    <!-- <boc-item name="[[house.message]]"></boc-item> -->
+    <!-- <boc-item name="Bread"></boc-item> -->
+
     <!-- <boc-add-item></boc-add-item> -->
     <!-- <p>- current shopping list</p> -->
     <!-- <p>- add new item to the list</p> -->
     <!-- <p>- add new purchase</p> -->
-    <paper-fab icon="add" on-tap="_raise"></paper-fab>
+    <template is="dom-if" if="[[hidden]]">
+      <paper-fab class="action" icon="add" on-tap="_add"></paper-fab>
+    </template>
+    <template is="dom-if" if="[[!hidden]]">
+      <paper-fab class="action" icon="remove" on-tap="_add"></paper-fab>
+    </template>
   </template>
   <script>
     Polymer({
       is: 'boc-home',
       properties: {
-        elev: { type: Number, value: 0 }
+        hidden: { type: Boolean, value: true, observer: "_updown" },
+        user: { type: Object },
+        elev: { type: Number, value: 0 },
+        counter: { type: Number, value: 0 }
+      },
+      _add: function() {
+        if(this.hidden){
+          this.hidden = false;
+        }else{
+          this.hidden = true;
+        }
       },
       _raise: function() {
-        if(this.elev < 6 ){ //5 max
+        if( this.elev < 5 ){ //5 max
           this.elev++;
         }else{
           this.elev = 0;
         }
+      },
+      _lower: function() {
+        if( this.elev > 0 ) this.elev--;
+      },
+      _updown: function(e) {
+        console.log(e);
       }
     });
   </script>

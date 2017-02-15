@@ -14,7 +14,7 @@ html{
 }
 body {
   /*background: url(../img/floral.svg), no-repeat;*/
-  background-color: #004039;
+  background-color: var(--light-primary-color);
   /*background: #fafafa;*/
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #B2DFDB;
@@ -22,6 +22,15 @@ body {
   padding: 0;
 }
 
+paper-card{
+  width: 99%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 0.5%;
+}
+paper-card: hover{
+  elevation: 3;
+}
 
 :root {
   --darkest-primary-color:    #004039;
@@ -98,6 +107,7 @@ h1{
   @apply(--layout-horizontal);
   align-items: center;
   background-color: #F2F9FF;
+  color: var(--dark-primary-color);
 }
 paper-tabs{
   color: var(--light-primary-color, #B2DFDB);

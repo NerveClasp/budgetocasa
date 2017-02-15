@@ -88,17 +88,16 @@
 </div>
 <div class="wrapper, layout horizontal" hidden$="[[!user]]">
   <div id="test" onload="userCheck([[user]])" onshow="userCheck([[user]])"></div>
-  <paper-card class="pcard">
-    <div class="card-content">
-
+  <paper-material elevation="1">
+  <!-- <paper-card class="pcard"> -->
       <template is="dom-if" if="[[user]]">
-
         <div class="welcome">
           <h3>Howdy, [[user.displayName]]</h3>
           <paper-button raised on-tap="logout" id="logout">Leave</paper-button>
         </div>
-      </template></div>
-    </paper-card>
+      </template>
+    </paper-material>
+    <!-- </paper-card> -->
   </div>
 </template>
 <script>
