@@ -56,6 +56,11 @@
         flex-direction: row;
         flex-wrap: wrap;
       }
+      #addit{
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+      }
     </style>
     <firebase-auth user="{{user}}"></firebase-auth>
     <firebase-document
@@ -73,8 +78,20 @@
       path="/nodes/[[userdata.node]]/shopinglist"
       data={{shoplist}}>
     </firebase-query>
+    <div class="currentcart" hidden="[[userdata.cart.empty]]">
+      <paper-card elevation="1" animated-shadow="true">
+        <div class="card-content">
+          <div class="moneychange">
+            <!-- <paper-badge for="moneyin" label="[[userdata.cart.entries]]"></paper-badge> -->
+            <paper-input id="moneyin" label="Total Price for [[userdata.cart.entries]] items" value="{{userdata.cart.total}}" type="number"><div prefix>₴</div></paper-input>
+        </div>
+          <div class="finish">
+            <paper-button raised on-tap="_finishShopping">Finish</paper-button>
+          </div>
+        </div>
+      </paper-card>
+    </div>
 
-    <boc-add-item id="addit" source=[[userdata.node]]></boc-add-item>
     <div id="slist">
       <template is="dom-repeat" items="[[shoplist]]" as="item">
         <template is="dom-if" if="[[!item.inCart]]">
@@ -90,19 +107,9 @@
     <template is="dom-if" if="[[!hidden]]">
       <paper-fab class="action" icon="remove" on-tap="_add"></paper-fab>
     </template>
-    <div class="footer">
-      <paper-card elevation="1" animated-shadow="true">
-        <div class="card-content">
-          <div class="moneychange">
-            <!-- <paper-badge for="moneyin" label="[[userdata.cart.entries]]"></paper-badge> -->
-            <paper-input id="moneyin" label="Total Price for [[userdata.cart.entries]] items" value="{{userdata.cart.total}}" type="number"><div prefix>₴</div></paper-input>
-        </div>
-          <div class="finish">
-            <paper-button raised on-tap="_finishShopping">Finish</paper-button>
-          </div>
-        </div>
-      </paper-card>
-    </div>
+    <boc-add-item id="addit" source=[[userdata.node]]></boc-add-item>
+
+
   </template>
   <script>
     Polymer({
@@ -125,7 +132,7 @@
         this.$.userdata.ref.child("history").push(this.userdata.cart);
         this.$.userdata.ref.child("spent").set(spent+plus);
         this.$.house.ref.child("users/"+this.user.uid+"/spent").set(spent+plus);
-        this.$.userdata.ref.child("cart").set({entries: 0, total: 0});
+        this.$.userdata.ref.child("cart").set({entries: 0, total: 0, empty: true });
         console.log(entries);
       },
       _add: function() {
