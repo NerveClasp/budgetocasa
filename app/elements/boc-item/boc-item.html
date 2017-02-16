@@ -27,6 +27,9 @@
       .right{
         width: 50%;
       }
+      .item-controls{
+        width: 20%;
+      }
       /*.item-info{
         width: 80%;
       }*/
@@ -36,13 +39,14 @@
       path="/nodes/[[node]]/shopinglist"
       data={{thisone}}>
     </firebase-document>
-    <paper-card elevation="1" animated-shadow="true" on-tap="_showcontrols">
-      <div class="card-content">
+    <paper-card elevation="1" animated-shadow="true">
+      <div class="card-content" on-tap="_showcontrols">
         <div class="item-info" id="card">
           <paper-checkbox id="buy" on-tap="_buy"></paper-checkbox> [[name]]
         </div>
         <div class="item-controls" hidden="[[controlsshow]]">
-        </paper-badge></div>
+          <paper-button id="remove-button" style="float: right;" icon="remove" raised on-tap="_remove">Remove</paper-button>
+        </div>
       </div>
       <div class="card-actions" hidden=[[actionsshow]]>
         <!-- <paper-input label="total" type="number"><div prefix>₴</div></paper-input> -->
@@ -50,7 +54,6 @@
           <money-input id="moneyin" class="custom-style" label="Price" currency="₴"></money-input>
         </div>
         <div class="right">
-          <paper-button id="remove-button" icon="remove" raised on-tap="_remove">Remove</paper-button>
           <paper-button id="add-button" icon="add" raised on-tap="_add">Buy</paper-button>
         </div>
         <!-- <paper-fab mini icon="remove" on-tap='_lower'></paper-fab> -->
@@ -80,10 +83,12 @@
           this.$.buy.checked = true;
           this.controlsshow = false;
           this.actionsshow = false;
+          this.$.card.style.width = "80%";
         }else{
           this.$.buy.checked = false;
           this.controlsshow = true;
           this.actionsshow = true;
+          this.$.card.style.width = "100%";
         }
       },
       _remove: function() {
