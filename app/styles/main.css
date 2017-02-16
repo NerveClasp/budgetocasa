@@ -14,7 +14,7 @@ html{
 }
 body {
   /*background: url(../img/floral.svg), no-repeat;*/
-  background-color: var(--light-primary-color);
+  background-color: var(--darkest-primary-color);
   /*background: #fafafa;*/
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #B2DFDB;
@@ -106,8 +106,8 @@ h1{
 .card-actions{
   @apply(--layout-horizontal);
   align-items: center;
-  background-color: #F2F9FF;
-  color: var(--dark-primary-color);
+  background-color: var(--dark-primary-color);
+  /*color: var(--dark-primary-color);*/
 }
 paper-tabs{
   color: var(--light-primary-color, #B2DFDB);

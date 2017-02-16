@@ -1,29 +1,95 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="boc-item" name={{name}} price={{price}} quantity={{quantity}}>
+<dom-module id="boc-item" name={{name}} node={{node}} price={{price}} quantity={{quantity}} item={{item}}>
   <template>
-    <style>
+    <style is="custom-style">
       :host {
         display: block;
+        --paper-checkbox-checked-color: var(--accent-color);
+        /*--money-input-width: 90px;*/
       }
       paper-card:hover{
         @apply(--shadow-elevation-8dp);
       }
+      paper-button{
+        background-color: var(--accent-color);
+        color: var(--primary-text-color);
+        float: right;
+      }
+      .card-actions, .card-content{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .left{
+        width: 50%;
+      }
+      .right{
+        width: 50%;
+      }
+      /*.item-info{
+        width: 80%;
+      }*/
     </style>
-    <paper-card elevation="1" animated-shadow="true">
+    <firebase-document
+      id="thisone"
+      path="/nodes/[[node]]/shopinglist"
+      data={{thisone}}>
+    </firebase-document>
+    <paper-card elevation="1" animated-shadow="true" on-tap="_showcontrols">
       <div class="card-content">
-      [[name]]
+        <div class="item-info" id="card">
+          <paper-checkbox id="buy" on-tap="_buy"></paper-checkbox> [[name]]
+        </div>
+        <div class="item-controls" hidden="[[controlsshow]]">
+        </paper-badge></div>
       </div>
-      <!-- <div class="card-actions">
-        <paper-fab mini icon="remove" on-tap='_lower'></paper-fab>
-      </div> -->
+      <div class="card-actions" hidden=[[actionsshow]]>
+        <!-- <paper-input label="total" type="number"><div prefix>₴</div></paper-input> -->
+        <div class="left">
+          <money-input id="moneyin" class="custom-style" label="Price" currency="₴"></money-input>
+        </div>
+        <div class="right">
+          <paper-button id="remove-button" icon="remove" raised on-tap="_remove">Remove</paper-button>
+          <paper-button id="add-button" icon="add" raised on-tap="_add">Buy</paper-button>
+        </div>
+        <!-- <paper-fab mini icon="remove" on-tap='_lower'></paper-fab> -->
+      </div>
     </paper-card>
   </template>
   <script>
     Polymer({
       is: 'boc-item',
+      properties: {
+        actionsshow: { type: Boolean, value: true },
+        controlsshow: { type: Boolean, value: true }
+      },
       _lower: function() {
         console.log("go low");
+      },
+      _buy: function(a, b, c) {
+        if(this.$.buy.checked){
+          this.actionsshow = false;
+        }else{
+          this.actionsshow = true;
+        }
+        console.log(this.$.buy.checked);
+      },
+      _showcontrols: function() {
+        if(this.controlsshow){
+          this.$.buy.checked = true;
+          this.controlsshow = false;
+          this.actionsshow = false;
+        }else{
+          this.$.buy.checked = false;
+          this.controlsshow = true;
+          this.actionsshow = true;
+        }
+      },
+      _remove: function() {
+        console.log(this.item);
+        console.log(this.thisone);
+        this.$.thisone.ref.child(this.item.$key).remove();
       }
     });
   </script>

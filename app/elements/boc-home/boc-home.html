@@ -18,7 +18,27 @@
         display: flex;
         flex-direction: column;
       }*/
-
+      .sitem{
+        word-wrap: break-word;
+        width: 100%;
+      }
+      #slist{
+        display: block;
+        width: 100%;
+        padding: 0;
+      }
+      @media only screen and (min-width: 600px) {
+        #slist{
+          display: flex;
+          flex-flow: row;
+          flex-wrap: wrap;
+          width: 99.4%;
+          padding-left: 0.3%;
+        }
+        .sitem{
+          width: 50%;
+        }
+      }
     </style>
     <firebase-auth user="{{user}}"></firebase-auth>
     <firebase-document
@@ -37,11 +57,12 @@
       data={{shoplist}}>
     </firebase-query>
 
-    <boc-add-item id="addit" source=[[userdata.node]] hidden={{hidden}} test={{hidden}}></boc-add-item>
-    <template is="dom-repeat" items="[[shoplist]]" as="item">
-      <boc-item name="[[item.name]]"></boc-item>
-
-    </template>
+    <boc-add-item id="addit" source=[[userdata.node]]></boc-add-item>
+    <div id="slist">
+      <template is="dom-repeat" items="[[shoplist]]" as="item">
+        <boc-item class="sitem" node="[[userdata.node]]" item="[[item]]" name="[[item.name]]"></boc-item>
+      </template>
+    </div>
 
 
     <!-- <boc-item name="[[user.uid]]"></boc-item> -->
@@ -63,17 +84,18 @@
     Polymer({
       is: 'boc-home',
       properties: {
-        hidden: { type: Boolean, value: true, observer: "_updown" },
+        // hidden: { type: Boolean, value: true, observer: "_updown" },
         user: { type: Object },
         elev: { type: Number, value: 0 },
         counter: { type: Number, value: 0 }
       },
       _add: function() {
-        if(this.hidden){
-          this.hidden = false;
-        }else{
-          this.hidden = true;
-        }
+        // if(this.hidden){
+        //   this.hidden = false;
+        // }else{
+        //   this.hidden = true;
+        // }
+        console.log("hello");
       },
       _raise: function() {
         if( this.elev < 5 ){ //5 max

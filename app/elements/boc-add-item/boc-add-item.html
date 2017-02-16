@@ -12,16 +12,35 @@
       :host {
         display: block;
       }
+      #add-button{
+        /*width: 20%;*/
+        background-color: var(--accent-color);
+        /*padding: 0;*/
+        margin: 0;
+        min-width: 56px;
+        min-height: 56px;
+        float: right;
+      }
+      paper-textarea{
+        width: 100%;
+        padding-right: 12px;
+      }
+      .card-content{
+        /*width: 100%;*/
+        display: flex;
+        flex-direction: row;
+      }
     </style>
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
         <paper-textarea id="textarea" textinput={{textinput}}
         label="Шо купіть?" class="boc-text">
         </paper-textarea>
+        <paper-fab id="add-button" icon="add" on-tap="_add"></paper-fab>
+        <!-- <paper-button raised class="button" id="add-button"  on-tap="_add">Додати</paper-button> -->
       </div>
-      <div class="card-actions">
-        <paper-button raised class="button" id="add-button"  on-tap="_add">Додати</paper-button>
-      </div>
+      <!-- <div class="card-actions">
+      </div> -->
     </paper-card>
   </template>
   <script>
