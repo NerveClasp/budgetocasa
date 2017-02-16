@@ -1,0 +1,24 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-cart">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <firebase-auth id="user" user="{{user}}"></firebase-auth>
+    <firebase-document
+      id="cart"
+      path="/users/[[user.uid]]/cart"
+      data={{cart}}>
+    </firebase-document>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'boc-cart',
+
+    });
+  </script>
+</dom-module>

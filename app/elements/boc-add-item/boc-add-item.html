@@ -56,13 +56,16 @@
       },
       _add: function() {
         var price = "";
-        var obj = {
-          name: this.$.textarea.value,
-          user: this.user.uid,
-          order: 0-Date.now(),
-          price: price
-        };
-        this.$.house.ref.child("shopinglist").push(obj);
+        var text = this.$.textarea.value.split('\n');
+        for(i=0; i<text.length; i++){
+          var obj = {
+            name: text[i],
+            user: this.user.uid,
+            order: 0-Date.now(),
+            price: price
+          };
+          this.$.house.ref.child("shopinglist").push(obj);
+        }
         this.$.textarea.value = null;
         // this.hidden = true;
         this.test = true;

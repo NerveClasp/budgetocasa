@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="boc-item" name={{name}} node={{node}} price={{price}} quantity={{quantity}} item={{item}}>
+<dom-module id="boc-item" node={{node}} item={{item}}>
   <template>
     <style is="custom-style">
       :host {
@@ -34,27 +34,33 @@
         width: 80%;
       }*/
     </style>
+    <firebase-auth user="{{user}}"></firebase-auth>
     <firebase-document
       id="thisone"
       path="/nodes/[[node]]/shopinglist"
       data={{thisone}}>
     </firebase-document>
+    <firebase-document
+      id="cart"
+      path="/users/[[user.uid]]/cart"
+      data={{cart}}>
+    </firebase-document>
+
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content" on-tap="_showcontrols">
         <div class="item-info" id="card">
-          <paper-checkbox id="buy" on-tap="_buy"></paper-checkbox> [[name]]
+          <paper-checkbox id="buy" on-tap="_select"></paper-checkbox> [[item.name]]
         </div>
         <div class="item-controls" hidden="[[controlsshow]]">
           <paper-button id="remove-button" style="float: right;" icon="remove" raised on-tap="_remove">Remove</paper-button>
         </div>
       </div>
       <div class="card-actions" hidden=[[actionsshow]]>
-        <!-- <paper-input label="total" type="number"><div prefix>₴</div></paper-input> -->
         <div class="left">
-          <money-input id="moneyin" class="custom-style" label="Price" currency="₴"></money-input>
+          <paper-input id="moneyin" label="price" type="number"><div prefix>₴</div></paper-input>
         </div>
         <div class="right">
-          <paper-button id="add-button" icon="add" raised on-tap="_add">Buy</paper-button>
+          <paper-button id="add-button" icon="add" raised on-tap="_addToCart">Buy</paper-button>
         </div>
         <!-- <paper-fab mini icon="remove" on-tap='_lower'></paper-fab> -->
       </div>
@@ -70,7 +76,7 @@
       _lower: function() {
         console.log("go low");
       },
-      _buy: function(a, b, c) {
+      _select: function(a, b, c) {
         if(this.$.buy.checked){
           this.actionsshow = false;
         }else{
@@ -92,9 +98,29 @@
         }
       },
       _remove: function() {
-        console.log(this.item);
-        console.log(this.thisone);
         this.$.thisone.ref.child(this.item.$key).remove();
+      },
+      _addToCart: function() {
+        var item = this.item;
+        // if(this.cart.total != ""){
+          var total = parseInt(this.cart.total) || 0;
+        // }else{
+        //   var total = 0;
+        // }
+
+        var entries = parseInt(this.cart.entries) || 0;
+        var plus = parseInt(this.$.moneyin.value) || 0;
+        var newTotal = total+plus;
+        var cartIt = {
+          name: item.name,
+          price: plus
+        };
+        // do not forget to create cart for each user with total
+        this.$.cart.ref.child("list/"+item.$key).set(cartIt);
+        this.$.cart.ref.child("total").set(newTotal);
+        this.$.cart.ref.child("keys/"+entries).set(item.$key);
+        this.$.cart.ref.child("entries").set(entries+1);
+        this.$.thisone.ref.child(this.item.$key+"/inCart").set(true);
       }
     });
   </script>

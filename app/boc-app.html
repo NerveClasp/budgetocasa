@@ -51,6 +51,16 @@
     api-key="AIzaSyCv0VvCijXIONhpueMGErW2KWyzoIvv82o">
   </firebase-app>
   <firebase-auth user="{{user}}"></firebase-auth>
+  <firebase-document
+    id="userdata"
+    path="/users/[[user.uid]]"
+    data={{userdata}}>
+  </firebase-document>
+  <firebase-query
+    id="queryUser"
+    path="/users"
+    data={{users}}>
+  </firebase-query>
   <boc-login></boc-login>
     <template is="dom-if" if="[[user]]">
       <paper-tabs selected={{selected}} align-bottom>
@@ -78,12 +88,28 @@
     Polymer({
       is: 'boc-app',
       properties: {
-        user:         { type: Object, observer: 'userdata' },
+        user:         { type: Object, observer: '_user' },
         statusKnown:  { type: Object },
-        selected:     { type: Number, value: 0 }
+        selected:     { type: Number, value: 0 },
+        userdata:     { type: Object }
       },
-      userdata: function(data) {
-        console.log(data);
+      _user: function(data) {
+        if(this.user != null){
+          var usr = this.user;
+          var q = this.$.queryUser.ref.child(usr.uid);
+          var newUser = {
+            name: usr.displayName,
+            cart: { entries: 0, total: 0 },
+            spent: 0
+          };
+          q.once("value", function(snapshot){
+            if(!snapshot.exists()){
+              q.set(newUser);
+            }
+          }, function(errorObject) {
+            console.log("The read failed: "+errorObject.code);
+          });
+        }
       }
     });
   </script>
