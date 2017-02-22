@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="boc-subscription">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-messaging id="messaging"
+      token="{{token}}"
+      on-message="handleMessage">
+    </firebase-messaging>
+    <firebase-document
+      path="/users/[[user.uid]]/token"
+      data=[[token]]>
+    </firebase-document>
+    <firebase-document
+      id="userdata"
+      path="/users/[[user.uid]]"
+      data=[[userdata]]>
+    </firebase-document>
+    <paper-toggle-button
+      id="subscribe" on-tap="toggleSubscription"
+      checked="[[token]]" >
+      Receive notifications
+    </paper-toggle-button>
+  </template>
+  <script>
+    Polymer({
+      is: 'boc-subscription',
+      toggleSubscription: function() {
+        var udata = this.$.userdata;
+        this.$.messaging.requestPermission().then(function() {
+          // permission was granted
+          udata.ref.child("subscribed").set(true);
+        }, function(err) {
+          // permission was denied
+          udata.ref.child("subscribed").set(false);
+        });
+      },
+      handleMessage: function() {
+        console.log("message received", arguments);
+      }
+    });
+  </script>
+</dom-module>

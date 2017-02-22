@@ -73,26 +73,32 @@
       is: 'boc-item',
       properties: {
         actionsshow: { type: Boolean, value: true },
-        controlsshow: { type: Boolean, value: true }
+        controlsshow: { type: Boolean, value: true },
+        slctd: {type: Boolean, value: true }
       },
+      // TODO add commenting and description functionality
       _lower: function() {
         console.log("go low");
       },
       _select: function(a, b, c) {
         if(this.$.buy.checked){
           this.actionsshow = false;
+          // this.slctd = true;
         }else{
           this.actionsshow = true;
+          // this.slctd = false;
         }
         console.log(this.$.buy.checked);
       },
       _showcontrols: function() {
         if(this.controlsshow){
+          this.slctd = true;
           this.$.buy.checked = true;
           this.controlsshow = false;
           this.actionsshow = false;
           this.$.card.style.width = "80%";
         }else{
+          this.slctd = false;
           this.$.buy.checked = false;
           this.controlsshow = true;
           this.actionsshow = true;
@@ -117,6 +123,7 @@
         this.$.cart.ref.child("list/"+item.$key).set(cartIt);
         this.$.cart.ref.child("total").set(newTotal);
         this.$.cart.ref.child("keys/"+entries).set(item.$key);
+        this.$.cart.ref.child("names/"+entries).set(item.name);
         this.$.cart.ref.child("entries").set(entries+1);
         this.$.cart.ref.child("empty").set(false);
         this.$.thisone.ref.child(this.item.$key+"/inCart").set(true);

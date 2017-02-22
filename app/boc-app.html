@@ -2,7 +2,7 @@
 
 <dom-module id="boc-app">
   <template>
-    <style>
+    <style include="app-theme">
       :root {
         --paper-card-background-color: var(--default-primary-color);
         /*--paper-card-actions: var(--dark-primary-color);*/
@@ -48,7 +48,8 @@
     id="firebase"
     auth-domain="budgetocasa.firebaseapp.com"
     database-url="https://budgetocasa.firebaseio.com/"
-    api-key="AIzaSyCv0VvCijXIONhpueMGErW2KWyzoIvv82o">
+    api-key="AIzaSyCv0VvCijXIONhpueMGErW2KWyzoIvv82o"
+    messaging-sender-id="950449002614">
   </firebase-app>
   <firebase-auth user="{{user}}"></firebase-auth>
   <firebase-document
@@ -65,7 +66,7 @@
     <template is="dom-if" if="[[user]]">
       <paper-tabs selected={{selected}} align-bottom>
         <paper-tab>Main</paper-tab>
-        <paper-tab>Chat</paper-tab>
+        <!-- <paper-tab>Chat</paper-tab> -->
         <paper-tab>Stats</paper-tab>
         <paper-tab>Settings</paper-tab>
       </paper-tabs>
@@ -73,9 +74,9 @@
       <div>
         <boc-home></boc-home>
       </div>
-      <div>
+      <!-- <div>
         <boc-chat></boc-chat>
-      </div>
+      </div> -->
       <div>
         <boc-stats></boc-stats>
       </div>

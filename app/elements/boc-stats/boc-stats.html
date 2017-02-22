@@ -6,9 +6,86 @@
       :host {
         display: block;
       }
+      .total{
+        padding-bottom: 6px;
+      }
+      #spentstats{
+        display: flex;
+        flex-direction: row;
+      }
+      .topstats{
+        text-align: center;
+        width: 100%;
+      }
+      ul{
+        margin: 0;
+      }
+      .sitem{
+        word-wrap: break-word;
+        width: 100%;
+      }
+      #slist{
+        display: block;
+        width: 100%;
+        padding: 0;
+      }
+      @media only screen and (min-width: 600px) {
+        #slist{
+          display: flex;
+          flex-flow: row;
+          flex-wrap: wrap;
+          width: 99.4%;
+          padding-left: 0.3%;
+        }
+        .sitem{
+          width: 32.6%;
+        }
+      }
     </style>
-    Stats<p>
-    </p>
+    <firebase-auth user="{{user}}"></firebase-auth>
+    <firebase-document
+      id="userdata"
+      path="/users/[[user.uid]]"
+      data={{userdata}}>
+    </firebase-document>
+    <firebase-query
+      id="members"
+      path="/nodes/[[userdata.node]]/users"
+      data={{members}}>
+    </firebase-query>
+    <firebase-query
+      id="history"
+      path="/nodes/[[userdata.node]]/history"
+      data={{history}}>
+    </firebase-query>
+    <paper-card>
+      <div class="card-content" id="spentstats">
+    <template is="dom-repeat" items="[[members]]" as="member">
+      <div class="topstats">[[member.name]] spent [[member.spent]]</div>
+    </template>
+
+      </div>
+    </paper-card>
+
+    <div id="slist">
+    <template is="dom-repeat" items="[[history]]" as="cart">
+      <paper-card class="sitem">
+        <div class="card-content">
+      <div>
+        [[cart.name]] purchased:
+      </div>
+      <ul>
+      <template is="dom-repeat" items="[[cart.names]]" as="items">
+        <li>[[items]]</li>
+      </template>
+      </ul>
+      <div class="total">
+        for a total of [[cart.total]] UAH
+      </div>
+    </div>
+    </paper-card>
+    </template>
+    </div>
   </template>
   <script>
     Polymer({

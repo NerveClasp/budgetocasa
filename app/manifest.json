@@ -1,0 +1,11 @@
+{
+  "name": "Budget-O-Casa",
+  "short_name": "Budgetocasa",
+  "display": "standalone",
+  "theme_color": "#009688",
+  "background_color": "#004039",
+  "description": "A webapp for home budget",
+  "lang": "en-US",
+  "orientation": "any",
+  "gcm_sender_id": "103953800507"
+}
