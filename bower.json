@@ -36,6 +36,7 @@
     "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
-    "money-input": "IngressoRapidoWebComponents/money-input#^1.1.0"
+    "money-input": "IngressoRapidoWebComponents/money-input#^1.1.0",
+    "moment-element": "abdonrd/moment-element#^0.4.4"
   }
 }

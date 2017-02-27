@@ -111,9 +111,9 @@
       },
       _addToCart: function() {
         var item = this.item;
-        var total = parseInt(this.cart.total) || 0;
+        var total = parseFloat(this.cart.total) || 0;
         var entries = parseInt(this.cart.entries) || 0;
-        var plus = parseInt(this.$.moneyin.value) || 0;
+        var plus = parseFloat(this.$.moneyin.value) || 0;
         var newTotal = total+plus;
         var cartIt = {
           name: item.name,

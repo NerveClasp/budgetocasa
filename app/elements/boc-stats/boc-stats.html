@@ -72,7 +72,7 @@
       <paper-card class="sitem">
         <div class="card-content">
       <div>
-        [[cart.name]] purchased:
+        <moment-element datetime="[[cart.date]]" output-format="DD.MM"></moment-element> [[cart.name]] purchased:
       </div>
       <ul>
       <template is="dom-repeat" items="[[cart.names]]" as="items">
